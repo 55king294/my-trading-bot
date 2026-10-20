@@ -5,9 +5,10 @@ from datetime import datetime
 import MetaTrader5 as mt5
 
 # ====== YAHAN APNI DEMO ACCOUNT DETAILS DALIYE ======
-MT5_LOGIN = 345695737  
-MT5_PASSWORD = "aA1Shahzad@"  
-MT5_SERVER = "XMGlobal-MT5 10"  
+  import os
+MT5_LOGIN = int(os.environ.get('MT5_LOGIN', 12345678))  
+MT5_PASSWORD = os.environ.get('MT5_PASSWORD', "password")  
+MT5_SERVER = os.environ.get('MT5_SERVER', "XMGlobal-MT5 10")
 # ====================================================
 
 SYMBOLS = ["GOLD24-7", "BTCUSD"]
