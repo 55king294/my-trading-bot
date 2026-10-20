@@ -1,0 +1,31 @@
+name: Run Trading Bot
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Har 15 minute baad chalega
+  workflow_dispatch:      # Aap manually bhi chala sakte hain
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Wine (Windows environment for MT5)
+      run: |
+        sudo dpkg --add-architecture i386
+        sudo apt-get update
+        sudo apt-get install -y wine64 wine32
+
+    - name: Install Python & Libraries
+      run: |
+        wine python-3.10.0-amd64.exe /quiet InstallAllUsers=1 PrependPath=1
+        export WINEPREFIX=~/.wine
+        wine python -m pip install MetaTrader5 pandas numpy
+
+    - name: Run Bot
+      run: |
+        export WINEPREFIX=~/.wine
+        wine python trend_autotrade.py
