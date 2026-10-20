@@ -5,7 +5,7 @@ from datetime import datetime
 import MetaTrader5 as mt5
 
 # ====== YAHAN APNI DEMO ACCOUNT DETAILS DALIYE ======
-  import os
+import os
 MT5_LOGIN = int(os.environ.get('MT5_LOGIN', 12345678))  
 MT5_PASSWORD = os.environ.get('MT5_PASSWORD', "password")  
 MT5_SERVER = os.environ.get('MT5_SERVER', "XMGlobal-MT5 10")
