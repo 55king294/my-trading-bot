@@ -19,13 +19,15 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y wine64 wine32 xvfb winetricks
 
-    - name: Install Python & Libraries
+    - name: Install MT5 & Python
       run: |
-        wget https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe
+        wget https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe
         export WINEPREFIX=~/.wine
+        xvfb-run wine mt5setup.exe /auto
+        wget https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe
         xvfb-run wine python-3.10.0-amd64.exe /quiet InstallAllUsers=1 PrependPath=1
-        wine python -m pip install MetaTrader5 pandas numpy
         xvfb-run winetricks -q vcrun2019
+        wine python -m pip install MetaTrader5 pandas numpy
 
     - name: Run Bot
       run: |
